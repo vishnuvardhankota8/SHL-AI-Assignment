@@ -127,3 +127,10 @@ def chat(request: ChatRequest):
         "recommendations": [],
         "end_of_conversation": False
     }
+    @app.get("/")
+def home():
+    return {
+        "message": "Welcome to the SHL Assessment Recommender API",
+        "docs": "/docs",
+        "health": "/health"
+    }

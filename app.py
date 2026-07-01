@@ -21,6 +21,18 @@ class ChatRequest(BaseModel):
 
 
 # -----------------------------
+# Home Endpoint
+# -----------------------------
+@app.get("/")
+def home():
+    return {
+        "message": "Welcome to the SHL Assessment Recommender API",
+        "docs": "/docs",
+        "health": "/health"
+    }
+
+
+# -----------------------------
 # Health Endpoint
 # -----------------------------
 @app.get("/health")
@@ -44,10 +56,10 @@ def chat(request: ChatRequest):
     if "personality" in conversation:
 
         personality_results = (
-            search_assessments("OPQ") +
-            search_assessments("personality") +
-            search_assessments("behaviour") +
-            search_assessments("behavior")
+            search_assessments("OPQ")
+            + search_assessments("personality")
+            + search_assessments("behaviour")
+            + search_assessments("behavior")
         )
 
         # Remove duplicates
@@ -126,11 +138,4 @@ def chat(request: ChatRequest):
         "reply": "I couldn't find a matching SHL assessment. Could you tell me more about the role, required skills, or seniority level?",
         "recommendations": [],
         "end_of_conversation": False
-    }
-    @app.get("/")
-def home():
-    return {
-        "message": "Welcome to the SHL Assessment Recommender API",
-        "docs": "/docs",
-        "health": "/health"
     }
